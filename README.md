@@ -1,5 +1,5 @@
-# PCF
-A Haskell implementation of a Programming Computable Functions (PCF) interpreter.
+# PCF2
+A Haskell implementation of a Programming Computable Functions (PCF) interpreter with Hindley-Milner style type inference.
 
 This is a statically typed lambda calculus with Booleans, natural numbers, and a fix operator for general recursion. It is heavily based on material from "Types and Programming Languages" by Benjamin Pierce. The evaluation strategy is call-by-value.
 
