@@ -1,0 +1,27 @@
+-- This module defines an infinite sequence of fresh variable names.
+
+module Gensym (
+  -- GensymState,
+  -- gensymInitState,
+  nextSym
+  ) where
+
+import Control.Monad.State
+
+-- type GensymState = Integer
+
+-- gensymInitState = 0
+
+-- -- Gensym state transformer (produce fresh id and increment the state by 1)
+-- nextSym :: String -> State GensymState String
+-- nextSym prefix =
+--   state $ \(GensymState i) -> (prefix ++ show i, GensymState (i+1))
+
+-- Works for any string-valued state monad as long as its state is
+-- numeric and showable.
+nextSym :: (Num s, Show s, MonadState s m) => String -> m String
+nextSym prefix = do
+  -- i <- gets (+ 1)
+  i <- get
+  put $ i + 1
+  return $ prefix ++ show i
