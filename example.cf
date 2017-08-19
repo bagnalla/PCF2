@@ -1,7 +1,7 @@
 import standard
 
-even = fix (\f => \n => if iszero n then true else not (f (pred n)));
-odd = \x => not (even x);
+even = fix (\f. \n. if iszero n then true else not (f (pred n)));
+odd = \x. not (even x);
 
 x = minus 10 3;
 z = plus 2 3;
@@ -14,7 +14,7 @@ b1 = equal c d;
 r2 = pow 2 (fact 3);
 r3 = mult 7 (fact 4);
 
-id = \x => x;
+id = \x. x;
 
 eval (
   # pow (div (div 1000 100) 5) 3

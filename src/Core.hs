@@ -304,7 +304,7 @@ isTyVar _         = False
 
 isTyArrow :: Type -> Bool
 isTyArrow (TyArrow _ _) = True
-isTyArrow _           = False
+isTyArrow _             = False
 
 tyArrowOf :: Type -> (Type, Type)
 tyArrowOf (TyArrow s t) = (s, t)

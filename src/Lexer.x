@@ -26,7 +26,7 @@ tokens :-
   "#".*                         ;
   $white+                       ;
   "->"                          { lex' TokenArrow }
-  "=>"                          { lex' TokenDoubleArrow }
+  "."                           { lex' TokenDoubleArrow }
   Bool                          { lex' TokenBoolTy }
   Nat                           { lex' TokenNatTy }
   true                          { lex' $ TokenBool True }
