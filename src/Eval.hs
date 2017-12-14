@@ -47,7 +47,6 @@ eval1 (TmSucc fi t)
 
 eval1 (TmPred _ (TmZero fi))  = return $ TmZero fi
 eval1 (TmPred _ (TmSucc _ t)) = return t
-      
 eval1 (TmPred fi t)
   | not (isValue t) = do
       t' <- eval1 t
@@ -58,6 +57,6 @@ eval1 _ = Nothing
 -- Reduce a term as much as possible.
 eval :: Term info -> Term info
 eval t =
-  case do eval1 t of
+  case eval1 t of
     Just t' -> eval t'
     Nothing -> t

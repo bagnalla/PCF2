@@ -1,5 +1,5 @@
--- This module provides functions for preprocessing an input file before
--- passing it to the main parser.
+-- This module provides functions for preprocessing an input file
+-- before passing it to the main parser.
 module Preprocessor (substImports, importLines) where
 
 import Data.List (splitAt)
@@ -13,8 +13,9 @@ substImports s imports = unlines $
                     front ++ srcs ++ drop 1 back) (lines s)
         imports
 
--- Find all import commands and return a mapping (assoc list) from line
--- number to lists of module names imported by the command at that line.
+-- Find all import commands and return a mapping (assoc list) from
+-- line number to lists of module names imported by the command at
+-- that line.
 importLines :: [String] -> [(Int, [String])]
 importLines ls = aux 0 [] ls
   where

@@ -1,8 +1,9 @@
 -- This model defines the interpreter. It interprets each Command of a
--- program in sequence. Each command results in either an (Id, Term) pair
--- (in the case of CBind), or the result of evaluating a term to a normal
--- form (in the case of CEval). A list containing all of the command results
--- is returned. Typically, the last one will be the value of interest.
+-- program in sequence. Each command results in either an (Id, Term)
+-- pair (in the case of CBind), or the result of evaluating a term to
+-- a normal form (in the case of CEval). A list containing all of the
+-- command results is returned. Typically, the last one will be the
+-- value of interest.
 
 module Interp (
   interpCommand,
@@ -25,17 +26,17 @@ initState = (empty, [])
 interpProg :: Prog info -> [CommandResult info]
 interpProg = (`evalState` initState) . interpCommands . prog_of
 
--- Use a state monad to interpret commands in sequence. The state is
--- a global environment mapping [Id]s to [Term]s and it is updated by
+-- Use a state monad to interpret commands in sequence. The state is a
+-- global environment mapping [Id]s to [Term]s and it is updated by
 -- CBind commands.
 interpCommands :: [Command info] -> State (InterpState info)
                     [CommandResult info]
 interpCommands [] = do
   (_, results) <- get
   return results
-  -- Alternatively, the following works. We make a state transformer that
-  -- extracts the list of command results from the state and returns it
-  -- as a value along with the state unchanged.
+  -- Alternatively, the following works. We make a state transformer
+  -- that extracts the list of command results from the state and
+  -- returns it as a value along with the state unchanged.
   -- state $ \(env, coms) -> (coms, (env, coms))
 interpCommands (c:cs) = do
   (env, results) <- get

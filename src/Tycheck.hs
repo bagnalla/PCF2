@@ -1,8 +1,8 @@
--- This module contains the typechecker. It is a function from untyped ASTs
--- that are annotated with line/column number information to ASTs with
--- type annotations. By type annotations, we mean annotations on the the
--- internal AST structures, not the type annotations provided by the
--- programmer on abstraction variable binders.
+-- This module contains the typechecker. It is a function from untyped
+-- ASTs that are annotated with line/column number information to ASTs
+-- with type annotations. By type annotations, we mean annotations on
+-- the the internal AST structures, not the type annotations provided
+-- by the programmer on abstraction variable binders.
 
 module Tycheck (
   TyInfo,
@@ -46,8 +46,7 @@ instance TySubstClass TyInfo where
 
 type Context = Symtab TypeScheme
 
-type TycheckM a = ReaderT Context
-  (ExceptT String (StateT Int Identity)) a
+type TycheckM a = ReaderT Context (ExceptT String (StateT Int Identity)) a
 
 runTycheck :: TycheckM a -> Either String a
 runTycheck t = fst $ runIdentity (runStateT (runExceptT (runReaderT t empty))

@@ -1,5 +1,6 @@
--- Maybe this module should be called Symtab or something. It defines a
--- type for identifiers along with an ADT for mapping them to values.
+-- Maybe this module should be called Symtab or something. It defines
+-- a type for identifiers along with an ADT for mapping them to
+-- values.
 
 module Symtab (
   Id(..),

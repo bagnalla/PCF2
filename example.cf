@@ -1,4 +1,4 @@
-import standard
+import prelude
 
 even = fix (\f. \n. if iszero n then true else not (f (pred n)));
 odd = \x. not (even x);

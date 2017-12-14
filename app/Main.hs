@@ -2,7 +2,7 @@ module Main where
 
 import Control.Monad
 import System.Environment (getArgs)
-import System.IO (hGetContents)
+-- import System.IO (hGetContents)
 import Ast
 import Core (isNumericValue, genTypeVarsProg, int_of_nat)
 import Interp (interpProg)
@@ -33,12 +33,12 @@ main = do
   -- putStrLn $ show (parseAndTycheck src')
   
   -- Parse and typecheck the final source code.
-  -- On success, run the interpreter on the AST
+  -- On success, run the interpreter on the AST.
   let results = case parseAndTycheck src' of
         Left s -> error s
         Right p' -> interpProg p'
 
-  -- Get the last result and show it
+  -- Get the last result and show it.
   let result = results!!(length results - 1)
   case result of
     Left s -> putStrLn $ show s

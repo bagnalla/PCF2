@@ -44,7 +44,7 @@ import Core (info_of_term)
   ';'          { Token $$ TokenSemicolon }
   -- eof          { Token $$ TokenEOF }
 
-%left ';'
+%right ';'
 %nonassoc '='
 %right arrow doublearrow
 %right succ pred iszero

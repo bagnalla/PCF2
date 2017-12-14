@@ -121,10 +121,14 @@ typeSubstTerm s t (TmApp fi tm1 tm2) =
 typeSubstTerm s t (TmIf fi tm1 tm2 tm3) =
   TmIf (tySubst s t fi) (typeSubstTerm s t tm1) (typeSubstTerm s t tm2)
     (typeSubstTerm s t tm3)
-typeSubstTerm s t (TmSucc fi tm)   = TmSucc (tySubst s t fi) (typeSubstTerm s t tm)
-typeSubstTerm s t (TmPred fi tm)   = TmPred (tySubst s t fi) (typeSubstTerm s t tm)
-typeSubstTerm s t (TmIszero fi tm) = TmIszero (tySubst s t fi) (typeSubstTerm s t tm)
-typeSubstTerm s t (TmFix fi tm)    = TmFix (tySubst s t fi) (typeSubstTerm s t tm)
+typeSubstTerm s t (TmSucc fi tm)   = TmSucc (tySubst s t fi)
+                                     (typeSubstTerm s t tm)
+typeSubstTerm s t (TmPred fi tm)   = TmPred (tySubst s t fi)
+                                     (typeSubstTerm s t tm)
+typeSubstTerm s t (TmIszero fi tm) = TmIszero (tySubst s t fi)
+                                     (typeSubstTerm s t tm)
+typeSubstTerm s t (TmFix fi tm)    = TmFix (tySubst s t fi)
+                                     (typeSubstTerm s t tm)
 typeSubstTerm s t (TmVar fi id)    = TmVar (tySubst s t fi) id
 typeSubstTerm s t (TmTrue fi)      = TmTrue (tySubst s t fi)
 typeSubstTerm s t (TmFalse fi)     = TmFalse (tySubst s t fi)
@@ -151,7 +155,8 @@ instance TySubstClass info => TySubstClass (Term info) where
 -- instance TySubstClass a => TySubstClass (Symtab a) where
 --   tySubst s t = Symtab.map (tySubst s t)
 
--- Fold over a list of individual substitutions on an instance of TySubstClass
+-- Fold over a list of individual substitutions on an instance of
+-- TySubstClass
 tySubstAll :: TySubstClass a => TypeSubst -> a -> a
 tySubstAll tsubst x =
   foldl (\acc (s, t) -> tySubst s t acc) x tsubst
@@ -175,7 +180,8 @@ freeVars = aux []
 ---------------------------------
 -- Free type variables of a type
 
--- Type variables with Ids not in the given list of Ids are considered free
+-- Type variables with Ids not in the given list of Ids are considered
+-- free
 freeTypeVarsAux :: [Id] -> Type -> [Type]
 freeTypeVarsAux ids (TyVar id)        = if id `elem` ids then [TyVar id] else []
 freeTypeVarsAux ids (TyArrow ty1 ty2) = freeTypeVarsAux ids ty1 ++
@@ -205,9 +211,9 @@ freeTypeVarsOfTypeScheme ts = freeTypeVarsAux (ts_tyvars_of ts) (ts_ty_of ts)
 -- freeTypeVars (TmFix _ t)               = freeTypeVars t
 -- freeTypeVars _                         = []
 
--------------------------------------------------------------------------
--- Fill in omitted typed annotations with auto-generated type variables.
--- Uses prefix "?X_".
+------------------------------------------------------------------------
+-- Fill in omitted typed annotations with auto-generated type
+-- variables.  Uses prefix "?X_".
 
 -- Generate fresh type variables for a type
 genTypeVarsType :: Type -> State Int Type
@@ -226,7 +232,8 @@ genTypeVarsType (TyArrow ty1 ty2) = do
 -- All other types
 genTypeVarsType ty = return ty
 
--- Generate fresh type variables for a single term (including its subterms).
+-- Generate fresh type variables for a single term (including its
+-- subterms).
 genTypeVarsTerm :: Term info -> State Int (Term info)
 
 -- TmAbs

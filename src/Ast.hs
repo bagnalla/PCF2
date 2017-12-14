@@ -37,8 +37,8 @@ mkTypeScheme ids ty =
 ---------
 -- Terms
 
--- Terms are parameterized by the type of extra information (their type,
--- location in source file, etc)
+-- Terms are parameterized by the type of extra information (their
+-- type, location in source file, etc).
 
 data Term info =
   TmVar info Id
